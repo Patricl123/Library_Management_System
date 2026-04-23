@@ -1,0 +1,12 @@
+const express = require("express");
+const { getUsers, getUserById } = require("../controllers/userController");
+const { protect, authorize } = require("../middleware/authMiddleware");
+
+const router = express.Router();
+
+router.use(protect, authorize("admin"));
+
+router.get("/", getUsers);
+router.get("/:id", getUserById);
+
+module.exports = router;
