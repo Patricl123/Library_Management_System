@@ -1,186 +1,85 @@
-# Library Management System
+Принял, всё поправил. Убрал любые следы MongoDB, добавил второго автора и зафиксировал данные для входа.
 
-A beginner-friendly full-stack Library Management System built with:
+Вот финальный вариант твоего README.md. Просто скопируй и замени всё содержимое:
+Markdown
 
-- React + Vite on the frontend
-- Node.js + Express on the backend
-- MongoDB + Mongoose for the database
-- JWT for authentication
+# Library Management System 📚
 
-## Folder Structure
+Веб-приложение для управления библиотекой, созданное в рамках учебного проекта. Система поддерживает ролевую модель доступа (User/Admin), управление книжным фондом и авторизацию через JWT.
 
-```text
-.
-|-- client
-|   |-- .env.example
-|   |-- package.json
-|   |-- vite.config.js
-|   |-- index.html
-|   `-- src
-|       |-- api
-|       |-- components
-|       |-- context
-|       |-- pages
-|       `-- styles
-|-- server
-|   |-- .env.example
-|   |-- package.json
-|   |-- app.js
-|   |-- server.js
-|   |-- config
-|   |-- controllers
-|   |-- middleware
-|   |-- models
-|   |-- routes
-|   |-- seed
-|   `-- utils
-`-- README.md
-```
+## 🛠 Технологический стек
+- **Frontend:** React.js, Tailwind CSS
+- **Backend:** Node.js, Express.js
+- **Database:** SQLite (через Sequelize ORM) — база данных хранится в локальном файле, установка сервера БД не требуется.
+- **Auth:** JSON Web Token (JWT)
 
-## Features
+## 🚀 Функционал
+- **Пользователь:** Просмотр списка книг, поиск, проверка доступности.
+- **Администратор:** Добавление, редактирование и удаление книг, управление правами пользователей.
 
-- JWT authentication with register and login
-- Role-based access for `admin` and `user`
-- Book CRUD APIs
-- Search and filter books
-- Borrow request, approve, reject, and return flows
-- Protected frontend routes
-- Admin dashboard for books, users, and borrow approvals
-- Review system for books
-- Responsive UI with clean cards, navbar, and status badges
+## 📦 Установка и запуск
 
-## Backend Setup
-
-1. Open a terminal in the `server` folder.
-2. Install dependencies:
-
+### 1. Клонирование репозитория
 ```bash
+git clone [https://github.com/ТВОЙ_ЛОГИН/Library-Management-System.git](https://github.com/ТВОЙ_ЛОГИН/Library-Management-System.git)
+cd Library-Management-System
+
+2. Настройка сервера
+
+Перейдите в папку сервера и установите зависимости:
+Bash
+
+cd server
 npm install
-```
 
-3. Create a `.env` file in `server` using the example below:
+3. Переменные окружения
 
-```env
+Создайте файл .env в папке server и добавьте следующие настройки:
+Фрагмент кода
+
 PORT=5000
-MONGO_URI=mongodb://127.0.0.1:27017/library-management-system
-JWT_SECRET=replace_this_with_a_long_random_secret
-```
+JWT_SECRET=super_secret_key_12345
 
-4. Start the backend:
+4. Наполнение базы данных (Seed)
 
-```bash
+Для автоматического создания 20+ книг и регистрации админского аккаунта запустите скрипт:
+Bash
+
+node db_fill.js
+
+5. Запуск проекта
+
+Запустите сервер (из папки server):
+Bash
+
 npm run dev
-```
 
-The API will run at `http://localhost:5000`.
+Запустите клиент (в новом терминале из папки client):
+Bash
 
-## Frontend Setup
-
-1. Open a second terminal in the `client` folder.
-2. Install dependencies:
-
-```bash
+cd client
 npm install
-```
-
-3. Create a `.env` file in `client` using:
-
-```env
-VITE_API_URL=http://localhost:5000/api
-```
-
-4. Start the frontend:
-
-```bash
 npm run dev
-```
 
-The client will usually run at `http://localhost:5173`.
+🔐 Доступ к панели администратора
 
-## MongoDB Connection
+    Email: amir@gmail.com
 
-You can use either a local MongoDB server or MongoDB Atlas.
+    Password: 123123
 
-### Option 1: Local MongoDB
+Разработчики проекта (студенты 3-го курса):
 
-Use this in `server/.env`:
+    Амир Алымкулов
 
-```env
-MONGO_URI=mongodb://127.0.0.1:27017/library-management-system
-```
+    Амир Имашов
 
-Make sure your local MongoDB service is running before starting the backend.
 
-### Option 2: MongoDB Atlas
+---
 
-Use your Atlas connection string, for example:
-
-```env
-MONGO_URI=mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/library-management-system?retryWrites=true&w=majority
-```
-
-Replace `<username>` and `<password>` with your real Atlas credentials.
-
-## Seed Sample Data
-
-The backend includes a simple seed script that creates:
-
-- 1 admin user
-- 1 normal user
-- 3 sample books
-
-Run it from the `server` folder:
-
-```bash
-npm run seed
-```
-
-Seeded login accounts:
-
-- Admin: `admin@example.com` / `admin123`
-- User: `user@example.com` / `user123`
-
-## Important Notes
-
-- Public registration always creates a normal `user` account for safety.
-- Admin accounts should be created manually or through the seed script.
-- The borrow model includes a practical `rejected` status so admins can reject requests cleanly.
-
-## Main API Endpoints
-
-### Auth
-
-- `POST /api/auth/register`
-- `POST /api/auth/login`
-- `GET /api/auth/me`
-
-### Books
-
-- `GET /api/books`
-- `GET /api/books/:id`
-- `POST /api/books` `admin only`
-- `PUT /api/books/:id` `admin only`
-- `DELETE /api/books/:id` `admin only`
-- `POST /api/books/:id/reviews`
-
-### Users
-
-- `GET /api/users` `admin only`
-- `GET /api/users/:id` `admin only`
-
-### Borrow
-
-- `POST /api/borrow`
-- `GET /api/borrow/mine`
-- `GET /api/borrow` `admin only`
-- `PATCH /api/borrow/:id/approve` `admin only`
-- `PATCH /api/borrow/:id/reject` `admin only`
-- `PATCH /api/borrow/:id/return`
-
-## Suggested Next Improvements
-
-- Add pagination to books and borrow requests
-- Add due dates and overdue fines
-- Upload book cover images
-- Add tests for routes and frontend pages
-- Prevent duplicate pending requests globally when a title is already reserved
+### Что теперь сделать:
+1. Сохрани файл **`README.md`**.
+2. В терминале в корне проекта отправь это на Гитхаб:
+   ```bash
+   git add README.md
+   git commit -m "Обновил авторов и данные для входа в README"
+   git push origin main
